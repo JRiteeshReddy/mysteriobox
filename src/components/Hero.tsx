@@ -65,10 +65,7 @@ const Hero = () => {
               animationDelay: '1.5s'
             }} className="">
                 <h3 className="text-xl font-semibold mb-2"></h3>
-                <p className="">
-                  Our Chaos Box contains the most unexpected combinations of items. 
-                  Only for the true adventurers!
-                </p>
+                <p className=""></p>
                 <Link to="/shop/chaos" className="mysterio-btn w-full mt-4 text-center">
                   Explore Chaos Box
                 </Link>
