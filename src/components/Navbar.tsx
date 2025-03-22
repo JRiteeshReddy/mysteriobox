@@ -1,13 +1,17 @@
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, ShoppingCart, ChevronDown, User } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, ShoppingCart, ChevronDown, User, LogOut } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/use-toast";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isMobile = useIsMobile();
+  const [user, setUser] = useState<any>(null);
+  const navigate = useNavigate();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +25,43 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  
+  useEffect(() => {
+    // Set up auth state change listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    // Get current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+  
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: "Logged out successfully",
+        description: "You have been logged out.",
+        duration: 3000,
+      });
+      navigate("/");
+    } catch (error: any) {
+      toast({
+        title: "Error logging out",
+        description: error.message,
+        variant: "destructive",
+        duration: 3000,
+      });
+    }
+  };
   
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 ${scrolled ? 'bg-mysterio-darker/80 backdrop-blur-md shadow-md' : 'bg-transparent'} mysterio-transition`}>
@@ -38,7 +79,7 @@ const Navbar = () => {
             <button className="navbar-link flex items-center">
               Categories <ChevronDown className="ml-1 w-4 h-4 group-hover:rotate-180 mysterio-transition" />
             </button>
-            <div className="absolute top-full left-0 mt-2 w-48 rounded-md glass-card opacity-0 invisible group-hover:opacity-100 group-hover:visible mysterio-transition z-50">
+            <div className="absolute top-full left-0 mt-2 w-48 rounded-md glass-card opacity-0 invisible group-hover:opacity-100 group-hover:visible mysterio-transition z-50" style={{ backgroundColor: 'rgba(36, 37, 59, 0.7)' }}>
               <div className="py-2 px-3">
                 <Link to="/shop?category=Tech" className="block py-2 navbar-link">Tech Box</Link>
                 <Link to="/shop?category=Pokemon" className="block py-2 navbar-link">Pokemon Box</Link>
@@ -61,10 +102,24 @@ const Navbar = () => {
               0
             </span>
           </Link>
-          <Link to="/login" className="mysterio-btn">
-            <User className="w-4 h-4 mr-2 inline" />
-            Login
-          </Link>
+          
+          {user ? (
+            <div className="flex items-center space-x-2">
+              <span className="text-white text-sm">{user.email.split('@')[0]}</span>
+              <button 
+                onClick={handleLogout}
+                className="mysterio-btn flex items-center"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link to="/login" className="mysterio-btn">
+              <User className="w-4 h-4 mr-2 inline" />
+              Login
+            </Link>
+          )}
         </div>
         
         <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -78,7 +133,7 @@ const Navbar = () => {
       
       {/* Mobile menu */}
       {isOpen && isMobile && (
-        <div className="md:hidden glass-card animate-fade-in z-50">
+        <div className="md:hidden glass-card animate-fade-in z-50" style={{ backgroundColor: 'rgba(36, 37, 59, 0.7)' }}>
           <div className="py-4 px-4 space-y-4">
             <Link to="/" className="block py-2 text-lg font-medium navbar-link" onClick={() => setIsOpen(false)}>Home</Link>
             <Link to="/shop" className="block py-2 text-lg font-medium navbar-link" onClick={() => setIsOpen(false)}>Shop</Link>
@@ -88,10 +143,24 @@ const Navbar = () => {
                 <ShoppingCart className="w-4 h-4 mr-2" />
                 Cart
               </Link>
-              <Link to="/login" className="mysterio-btn flex items-center" onClick={() => setIsOpen(false)}>
-                <User className="w-4 h-4 mr-2" />
-                Login
-              </Link>
+              
+              {user ? (
+                <button 
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                  className="mysterio-btn flex items-center"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </button>
+              ) : (
+                <Link to="/login" className="mysterio-btn flex items-center" onClick={() => setIsOpen(false)}>
+                  <User className="w-4 h-4 mr-2" />
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>

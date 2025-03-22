@@ -1,32 +1,96 @@
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ArrowRight, Lock, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  
+  // Check if user is already logged in
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        navigate("/");
+      }
+    };
+    
+    checkUser();
+  }, [navigate]);
+  
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Login successful!",
+        description: "Welcome back to MysterioBox.",
+        duration: 3000,
+      });
+      
+      navigate("/");
+    } catch (error: any) {
+      toast({
+        title: "Login failed",
+        description: error.message || "An error occurred during login",
+        variant: "destructive",
+        duration: 5000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Account created!",
+        description: "Your account has been created successfully. Welcome to MysterioBox!",
+        duration: 3000,
+      });
+      
+      navigate("/");
+    } catch (error: any) {
+      toast({
+        title: "Sign up failed",
+        description: error.message || "An error occurred during sign up",
+        variant: "destructive",
+        duration: 5000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // In a real implementation, we would call an API to authenticate the user
-    toast({
-      title: isLogin ? "Login successful!" : "Account created!",
-      description: isLogin 
-        ? "Welcome back to MysterioBox."
-        : "Your account has been created successfully. Welcome to MysterioBox!",
-      duration: 3000,
-    });
-    
-    // Reset form
-    setEmail("");
-    setPassword("");
+    isLogin ? handleLogin(e) : handleSignUp(e);
   };
   
   return (
@@ -36,7 +100,7 @@ const Login = () => {
       <main className="pt-20">
         <div className="container mx-auto px-4 py-10">
           <div className="max-w-md mx-auto">
-            <div className="glass-card rounded-xl p-8 backdrop-blur-md animate-scale-in">
+            <div className="glass-card rounded-xl p-8 backdrop-blur-md animate-scale-in" style={{ backgroundColor: 'rgba(36, 37, 59, 0.7)' }}>
               <div className="text-center mb-8">
                 <h2 className="mb-2">{isLogin ? "Welcome Back" : "Create Account"}</h2>
                 <p className="text-white/70">
@@ -92,9 +156,13 @@ const Login = () => {
                   </div>
                 )}
                 
-                <button type="submit" className="mysterio-btn w-full flex items-center justify-center group">
-                  {isLogin ? "Login" : "Create Account"}
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 mysterio-transition" />
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="mysterio-btn w-full flex items-center justify-center group"
+                >
+                  {loading ? "Processing..." : isLogin ? "Login" : "Create Account"}
+                  {!loading && <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 mysterio-transition" />}
                 </button>
               </form>
               

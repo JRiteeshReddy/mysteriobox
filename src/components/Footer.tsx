@@ -1,6 +1,5 @@
 
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Youtube, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -17,20 +16,6 @@ const Footer = () => {
               Unbox the unknown. Embrace the mystery.
               Every box is an adventure waiting to be discovered.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-white/70 hover:text-mysterio-purple mysterio-transition">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-white/70 hover:text-mysterio-purple mysterio-transition">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-white/70 hover:text-mysterio-purple mysterio-transition">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-white/70 hover:text-mysterio-purple mysterio-transition">
-                <Youtube className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           <div>
