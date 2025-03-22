@@ -32,8 +32,8 @@ const CallToAction = () => {
                 Start your adventure with 15% off your first box. Use code <span className="font-semibold text-mysterio-purple">FIRSTMYSTERY</span> at checkout and discover what fate has in store for you.
               </p>
               
-              <div className="flex flex-wrap gap-4">
-                <Link to="/shop" className="mysterio-btn flex items-center">
+              <div className="">
+                <Link to="/shop" className="mysterio-btn flex items-center mx-[58px]">
                   Shop Now <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
                 <Link to="/faq" className="mysterio-btn-outline flex items-center">
@@ -45,7 +45,7 @@ const CallToAction = () => {
             <div className="relative lg:h-auto">
               <div className="h-full">
                 <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Mystery Boxes" className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-r from-mysterio-darker to-transparent mx-[100px]"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-mysterio-darker to-transparent"></div>
               </div>
               
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-card p-6 rounded-lg max-w-xs text-center animate-float">
