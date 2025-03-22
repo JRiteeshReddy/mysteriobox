@@ -64,7 +64,7 @@ const Hero = () => {
               <div style={{
               animationDelay: '1.5s'
             }} className="">
-                <h3 className="text-xl font-semibold mb-2">Limited Edition</h3>
+                <h3 className="text-xl font-semibold mb-2"></h3>
                 <p className="">
                   Our Chaos Box contains the most unexpected combinations of items. 
                   Only for the true adventurers!
