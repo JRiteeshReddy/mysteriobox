@@ -66,7 +66,7 @@ const Hero = () => {
             }} className="">
                 <h3 className="text-xl font-semibold mb-2"></h3>
                 <p className=""></p>
-                <Link to="/shop/chaos" className="mysterio-btn w-full mt-4 text-center">
+                <Link to="/shop/chaos" className="">
                   Explore Chaos Box
                 </Link>
               </div>
