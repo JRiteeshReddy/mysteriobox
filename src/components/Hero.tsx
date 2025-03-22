@@ -57,7 +57,7 @@ const Hero = () => {
           <div className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="relative">
               <div className="w-full h-[500px] rounded-2xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="Mystery Box" className="w-full h-full object-cover object-center" />
+                <img alt="Mystery Box" className="w-full h-full object-cover object-center" src="/lovable-uploads/b502372b-bfb3-43d0-94a9-1b14eeccd019.png" />
                 <div className=""></div>
               </div>
               
