@@ -40,15 +40,18 @@ const Navbar = () => {
             </button>
             <div className="absolute top-full left-0 mt-2 w-48 rounded-md glass-card opacity-0 invisible group-hover:opacity-100 group-hover:visible mysterio-transition z-50">
               <div className="py-2 px-3">
-                <Link to="/shop/gamer" className="block py-2 navbar-link">Gamer Box</Link>
-                <Link to="/shop/kpop" className="block py-2 navbar-link">K-Pop Box</Link>
-                <Link to="/shop/anime" className="block py-2 navbar-link">Anime Box</Link>
-                <Link to="/shop/chaos" className="block py-2 navbar-link">Chaos Box</Link>
+                <Link to="/shop?category=Tech" className="block py-2 navbar-link">Tech Box</Link>
+                <Link to="/shop?category=Pokemon" className="block py-2 navbar-link">Pokemon Box</Link>
+                <Link to="/shop?category=Random" className="block py-2 navbar-link">Random Box</Link>
+                <Link to="/shop?category=Puzzle" className="block py-2 navbar-link">Rubik's Cube Box</Link>
+                <Link to="/shop?category=Pet" className="block py-2 navbar-link">Pet Box</Link>
+                <Link to="/shop?category=Anime" className="block py-2 navbar-link">Anime Box</Link>
+                <Link to="/shop?category=Food" className="block py-2 navbar-link">Food Box</Link>
+                <Link to="/shop?category=Sticker" className="block py-2 navbar-link">Sticker Box</Link>
               </div>
             </div>
           </div>
           <Link to="/about" className="navbar-link">About</Link>
-          <Link to="/contact" className="navbar-link">Contact</Link>
         </div>
         
         <div className="hidden md:flex items-center space-x-4">
@@ -80,7 +83,6 @@ const Navbar = () => {
             <Link to="/" className="block py-2 text-lg font-medium navbar-link" onClick={() => setIsOpen(false)}>Home</Link>
             <Link to="/shop" className="block py-2 text-lg font-medium navbar-link" onClick={() => setIsOpen(false)}>Shop</Link>
             <Link to="/about" className="block py-2 text-lg font-medium navbar-link" onClick={() => setIsOpen(false)}>About</Link>
-            <Link to="/contact" className="block py-2 text-lg font-medium navbar-link" onClick={() => setIsOpen(false)}>Contact</Link>
             <div className="pt-4 border-t border-white/10 flex justify-between">
               <Link to="/cart" className="mysterio-btn-outline flex items-center" onClick={() => setIsOpen(false)}>
                 <ShoppingCart className="w-4 h-4 mr-2" />

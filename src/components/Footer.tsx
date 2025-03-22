@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-mysterio-darker mt-20 pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <Link to="/" className="flex items-center mb-6">
               <span className="text-2xl font-bold font-playfair tracking-wider text-white">
@@ -36,11 +36,14 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Shop</h3>
             <ul className="space-y-3">
-              <li><Link to="/shop/gamer" className="navbar-link">Gamer Box</Link></li>
-              <li><Link to="/shop/kpop" className="navbar-link">K-Pop Box</Link></li>
-              <li><Link to="/shop/anime" className="navbar-link">Anime Box</Link></li>
-              <li><Link to="/shop/chaos" className="navbar-link">Chaos Box</Link></li>
-              <li><Link to="/shop" className="navbar-link">All Boxes</Link></li>
+              <li><Link to="/shop?category=Tech" className="navbar-link">Tech Box</Link></li>
+              <li><Link to="/shop?category=Pokemon" className="navbar-link">Pokemon Box</Link></li>
+              <li><Link to="/shop?category=Random" className="navbar-link">Random Box</Link></li>
+              <li><Link to="/shop?category=Puzzle" className="navbar-link">Rubik's Cube Box</Link></li>
+              <li><Link to="/shop?category=Pet" className="navbar-link">Pet Box</Link></li>
+              <li><Link to="/shop?category=Anime" className="navbar-link">Anime Box</Link></li>
+              <li><Link to="/shop?category=Food" className="navbar-link">Food Box</Link></li>
+              <li><Link to="/shop?category=Sticker" className="navbar-link">Sticker Box</Link></li>
             </ul>
           </div>
 
@@ -49,21 +52,9 @@ const Footer = () => {
             <ul className="space-y-3">
               <li><Link to="/about" className="navbar-link">About Us</Link></li>
               <li><Link to="/faq" className="navbar-link">FAQ</Link></li>
-              <li><Link to="/contact" className="navbar-link">Contact</Link></li>
               <li><Link to="/terms" className="navbar-link">Terms & Conditions</Link></li>
               <li><Link to="/privacy" className="navbar-link">Privacy Policy</Link></li>
             </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Newsletter</h3>
-            <p className="text-white/70 mb-4">Subscribe to receive updates on new mystery boxes and exclusive offers.</p>
-            <div className="flex">
-              <input type="email" placeholder="Your email" className="mysterio-input rounded-r-none" />
-              <button className="mysterio-btn rounded-l-none px-4 flex items-center justify-center">
-                <Mail className="w-5 h-5" />
-              </button>
-            </div>
           </div>
         </div>
 

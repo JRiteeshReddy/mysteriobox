@@ -11,43 +11,43 @@ import { toast } from "@/components/ui/use-toast";
 const mockProducts: Product[] = [
   {
     id: 1,
-    name: "Gamer's Paradise Box",
-    description: "Dive into a world of gaming treasures with collectibles, accessories, and exclusive items that will level up your gaming experience.",
+    name: "Tech Mystery Box",
+    description: "Latest gadgets and tech accessories in one amazing box. Perfect for tech enthusiasts and gadget lovers.",
     price: 49.99,
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5",
+    image: "public/lovable-uploads/a81d30b3-f599-4e9b-a0ca-aeb9fd90571e.png",
     rarityLevel: 3,
     chaosMeter: 2,
-    category: "Gamer"
+    category: "Tech"
   },
   {
     id: 2,
-    name: "K-Pop Ultimate Fan Box",
-    description: "For the devoted K-Pop enthusiast! Merchandise, photocards, and surprises from your favorite K-Pop groups.",
+    name: "Pokemon Mystery Box",
+    description: "Filled with Pokemon treasures! Cards, figurines and collectibles for trainers of all ages.",
     price: 59.99,
-    image: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb",
+    image: "public/lovable-uploads/25dd2fce-3cea-48c8-890e-2c5937ba7b40.png",
     rarityLevel: 4,
     chaosMeter: 2,
-    category: "K-Pop"
+    category: "Pokemon"
   },
   {
     id: 3,
-    name: "Anime Collector's Box",
-    description: "From figurines to exclusive merch, this box contains everything an anime lover could wish for.",
+    name: "Random Mystery Box",
+    description: "The ultimate surprise package! A completely random assortment of items that could be anything from anywhere.",
     price: 54.99,
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
+    image: "public/lovable-uploads/ca26c4b1-1d9e-41d6-bfc7-676ecb6da4f3.png",
     rarityLevel: 3,
-    chaosMeter: 3,
-    category: "Anime"
+    chaosMeter: 5,
+    category: "Random"
   },
   {
     id: 4,
-    name: "Chaos Mystery Box",
-    description: "The ultimate mystery experience. Anything could be inside - from tech gadgets to rare collectibles. Are you brave enough?",
-    price: 79.99,
-    image: "https://images.unsplash.com/photo-1527576539890-dfa815648363",
-    rarityLevel: 5,
-    chaosMeter: 5,
-    category: "Chaos"
+    name: "Rubik's Cube Box",
+    description: "For puzzle enthusiasts! Contains Rubik's cubes and other brain-teasing puzzles to challenge your mind.",
+    price: 39.99,
+    image: "public/lovable-uploads/752a93d8-f686-4126-b28c-ca34e86035ad.png",
+    rarityLevel: 2,
+    chaosMeter: 2,
+    category: "Puzzle"
   }
 ];
 
