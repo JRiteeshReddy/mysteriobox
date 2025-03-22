@@ -33,7 +33,7 @@ const CallToAction = () => {
               </p>
               
               <div className="">
-                <Link to="/shop" className="mysterio-btn flex items-center mx-[58px]">
+                <Link to="/shop" className="mysterio-btn flex items-center mx-0">
                   Shop Now <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
                 <Link to="/faq" className="mysterio-btn-outline flex items-center">
