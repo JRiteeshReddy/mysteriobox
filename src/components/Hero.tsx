@@ -58,7 +58,7 @@ const Hero = () => {
             <div className="relative">
               <div className="w-full h-[500px] rounded-2xl overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="Mystery Box" className="w-full h-full object-cover object-center" />
-                <div className="absolute inset-0 bg-gradient-to-t from-mysterio-darker to-transparent"></div>
+                <div className=""></div>
               </div>
               
               <div style={{
