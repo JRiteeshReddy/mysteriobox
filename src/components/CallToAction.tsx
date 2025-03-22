@@ -1,40 +1,28 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Package } from "lucide-react";
-
 const CallToAction = () => {
   const [isVisible, setIsVisible] = useState(false);
-  
   useEffect(() => {
     const handleScroll = () => {
       const element = document.getElementById("cta-section");
       if (!element) return;
-      
       const rect = element.getBoundingClientRect();
       const isInView = rect.top < window.innerHeight && rect.bottom >= 0;
-      
       if (isInView) {
         setIsVisible(true);
       }
     };
-    
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Check on initial load
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
-  return (
-    <section id="cta-section" className="py-20 relative overflow-hidden">
+  return <section id="cta-section" className="py-20 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(155,135,245,0.15)_0,transparent_70%)]"></div>
       
-      <div 
-        className={`container mx-auto px-4 relative z-10 transition-all duration-1000 ease-out ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-        }`}
-      >
+      <div className={`container mx-auto px-4 relative z-10 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         <div className="bg-gradient-to-r from-mysterio-darker to-mysterio-dark rounded-2xl overflow-hidden shadow-xl border border-white/5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="p-10 lg:p-16 flex flex-col justify-center">
@@ -56,12 +44,8 @@ const CallToAction = () => {
             
             <div className="relative lg:h-auto">
               <div className="h-full">
-                <img
-                  src="https://images.unsplash.com/photo-1518770660439-4636190af475"
-                  alt="Mystery Boxes"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-mysterio-darker to-transparent"></div>
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Mystery Boxes" className="h-full w-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-mysterio-darker to-transparent mx-[100px]"></div>
               </div>
               
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-card p-6 rounded-lg max-w-xs text-center animate-float">
@@ -75,8 +59,6 @@ const CallToAction = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default CallToAction;
