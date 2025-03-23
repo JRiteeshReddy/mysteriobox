@@ -1,10 +1,10 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ShoppingCart, ChevronDown, User, LogOut } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
+import { AuthService } from "@/services/AuthService";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,21 +45,9 @@ const Navbar = () => {
   }, []);
   
   const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      toast({
-        title: "Logged out successfully",
-        description: "You have been logged out.",
-        duration: 3000,
-      });
+    const result = await AuthService.signOut();
+    if (result.success) {
       navigate("/");
-    } catch (error: any) {
-      toast({
-        title: "Error logging out",
-        description: error.message,
-        variant: "destructive",
-        duration: 3000,
-      });
     }
   };
   

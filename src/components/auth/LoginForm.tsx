@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ArrowRight, Lock, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,6 +16,14 @@ const LoginForm = ({ isLogin, setIsLogin }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
+  // Load saved email when component mounts
+  useEffect(() => {
+    const savedEmail = localStorage.getItem('lastLoginEmail');
+    if (savedEmail && isLogin) {
+      setEmail(savedEmail);
+    }
+  }, [isLogin]);
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

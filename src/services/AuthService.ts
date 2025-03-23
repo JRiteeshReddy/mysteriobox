@@ -39,6 +39,9 @@ export const AuthService = {
       
       if (error) throw error;
       
+      // Save email for future logins
+      localStorage.setItem('lastLoginEmail', email);
+      
       toast({
         title: "Account created!",
         description: "Your account has been created successfully. Welcome to MysterioBox!",
@@ -60,5 +63,34 @@ export const AuthService = {
   checkSession: async () => {
     const { data } = await supabase.auth.getSession();
     return data.session;
+  },
+  
+  signOut: async () => {
+    try {
+      // Before signing out, save the current user's email
+      const { data } = await supabase.auth.getUser();
+      if (data.user?.email) {
+        localStorage.setItem('lastLoginEmail', data.user.email);
+      }
+      
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      
+      toast({
+        title: "Signed out successfully",
+        description: "You have been logged out.",
+        duration: 3000,
+      });
+      
+      return { success: true };
+    } catch (error: any) {
+      toast({
+        title: "Sign out failed",
+        description: error.message || "An error occurred during sign out",
+        variant: "destructive",
+        duration: 5000,
+      });
+      return { success: false, error };
+    }
   }
 };
