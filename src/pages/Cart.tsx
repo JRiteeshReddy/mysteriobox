@@ -9,12 +9,12 @@ import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
-// Mock data for the cart
+// Updated mock data for the cart
 const mockCartItems = [
   {
     product: {
       id: 1,
-      name: "Tech Box",
+      name: "Tech Mystery Box",
       description: "Advanced tech gadgets and accessories for the modern enthusiast.",
       price: 999,
       image: "/lovable-uploads/065a5fdc-0dfc-47c7-8468-b0c650fcfb62.png",
@@ -47,6 +47,7 @@ interface CartItem {
 const CartContent = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>(mockCartItems);
   const navigate = useNavigate();
+  const { user } = useAuth();
   
   const updateQuantity = (id: number, newQuantity: number) => {
     if (newQuantity < 1) return;
@@ -259,6 +260,8 @@ const CartContent = () => {
 };
 
 const Cart = () => {
+  const { user, isLoading } = useAuth();
+  
   return (
     <div className="min-h-screen">
       <Navbar />

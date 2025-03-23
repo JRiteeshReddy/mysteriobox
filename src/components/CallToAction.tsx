@@ -1,8 +1,11 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Package } from "lucide-react";
+
 const CallToAction = () => {
   const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       const element = document.getElementById("cta-section");
@@ -18,6 +21,7 @@ const CallToAction = () => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return <section id="cta-section" className="py-20 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(155,135,245,0.15)_0,transparent_70%)]"></div>
@@ -26,7 +30,6 @@ const CallToAction = () => {
         <div className="bg-gradient-to-r from-mysterio-darker to-mysterio-dark rounded-2xl overflow-hidden shadow-xl border border-white/5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="p-10 lg:p-16 flex flex-col justify-center">
-              <h5 className="text-mysterio-purple font-semibold mb-2 tracking-wide uppercase">Limited Time Offer</h5>
               <h2 className="mb-6">Embark on Your Mystery Journey Today</h2>
               <p className="text-white/80 text-lg mb-8">
                 Start your adventure with 15% off your first box. Use code <span className="font-semibold text-mysterio-purple">FIRSTMYSTERY</span> at checkout and discover what fate has in store for you.
@@ -44,7 +47,7 @@ const CallToAction = () => {
             
             <div className="relative lg:h-auto">
               <div className="h-full">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Mystery Boxes" className="h-full w-full object-cover" />
+                <img src="/lovable-uploads/b502372b-bfb3-43d0-94a9-1b14eeccd019.png" alt="Mystery Boxes" className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-mysterio-darker to-transparent"></div>
               </div>
               
@@ -61,4 +64,5 @@ const CallToAction = () => {
       </div>
     </section>;
 };
+
 export default CallToAction;
