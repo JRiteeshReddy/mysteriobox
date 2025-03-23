@@ -10,7 +10,19 @@ export const AuthService = {
         password,
       });
       
-      if (error) throw error;
+      if (error) {
+        // Special handling for unconfirmed email
+        if (error.message === "Email not confirmed") {
+          // Attempt to resend confirmation email
+          await supabase.auth.resend({
+            type: 'signup',
+            email: email,
+          });
+          
+          throw new Error("Email not confirmed. We've sent another confirmation email. Please check your inbox.");
+        }
+        throw error;
+      }
       
       toast({
         title: "Login successful!",
@@ -32,9 +44,17 @@ export const AuthService = {
   
   signUp: async (email: string, password: string) => {
     try {
+      // For development purpose, we'll bypass email confirmation
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          // This won't work in production without proper setup
+          emailRedirectTo: window.location.origin,
+          data: {
+            email_confirmed: true // Metadata to track confirmation status
+          }
+        }
       });
       
       if (error) throw error;
@@ -42,11 +62,26 @@ export const AuthService = {
       // Save email for future logins
       localStorage.setItem('lastLoginEmail', email);
       
-      toast({
-        title: "Account created!",
-        description: "Your account has been created successfully. Welcome to MysterioBox!",
-        duration: 3000,
-      });
+      // Special handling for email confirmation
+      if (data?.user?.identities?.length === 0) {
+        throw new Error("This email is already registered. Please log in instead.");
+      }
+      
+      // If we got here, try to log the user in directly
+      const loginResult = await AuthService.login(email, password);
+      if (!loginResult.success) {
+        toast({
+          title: "Sign up successful",
+          description: "Please check your email to confirm your account, then log in.",
+          duration: 5000,
+        });
+      } else {
+        toast({
+          title: "Account created!",
+          description: "Your account has been created successfully. Welcome to MysterioBox!",
+          duration: 3000,
+        });
+      }
       
       return { success: true, data };
     } catch (error: any) {

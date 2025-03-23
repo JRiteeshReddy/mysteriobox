@@ -1,6 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, ShoppingCart, ChevronDown, User, LogOut } from "lucide-react";
+import { Menu, X, ShoppingCart, ChevronDown, User, LogOut, UserCircle } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
@@ -11,6 +12,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const isMobile = useIsMobile();
   const [user, setUser] = useState<any>(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -48,6 +50,7 @@ const Navbar = () => {
     const result = await AuthService.signOut();
     if (result.success) {
       navigate("/");
+      setShowUserMenu(false);
     }
   };
   
@@ -92,15 +95,38 @@ const Navbar = () => {
           </Link>
           
           {user ? (
-            <div className="flex items-center space-x-2">
-              <span className="text-white text-sm">{user.email.split('@')[0]}</span>
+            <div className="relative">
               <button 
-                onClick={handleLogout}
-                className="mysterio-btn flex items-center"
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                className="flex items-center space-x-2 mysterio-btn-outline"
               >
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
+                <UserCircle className="w-5 h-5" />
+                <span>{user.email?.split('@')[0]}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showUserMenu ? 'rotate-180' : ''}`} />
               </button>
+              
+              {/* User dropdown menu */}
+              {showUserMenu && (
+                <div className="absolute right-0 mt-2 w-48 rounded-md glass-card shadow-lg z-50" style={{ backgroundColor: 'rgba(36, 37, 59, 0.9)' }}>
+                  <div className="py-2 px-3">
+                    <Link to="/profile" className="block py-2 navbar-link flex items-center">
+                      <User className="w-4 h-4 mr-2" />
+                      My Profile
+                    </Link>
+                    <Link to="/orders" className="block py-2 navbar-link flex items-center">
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      My Orders
+                    </Link>
+                    <button 
+                      onClick={handleLogout}
+                      className="w-full text-left py-2 navbar-link flex items-center text-red-400 hover:text-red-300"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <Link to="/login" className="mysterio-btn">
